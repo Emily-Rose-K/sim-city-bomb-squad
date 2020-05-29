@@ -50,8 +50,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function wireClick(e) {
-        console.log("clicked wire box");
-        console.log(e.target.id);
+        console.log("You clicked " + e.target.id);
+        let color = e.target.id;
+        if (!gameOver && !wireState[color]) {
+            e.target.src = "img/cut-" + color + "-wire.png";
+            wireState[color] = true;
+            let wireIndex = wiresToCut.indexOf(color);
+            if (wireIndex > -1) {
+                console.log("Correct!");
+                wiresToCut.splice(wireIndex, 1);
+                if(wiresToCut.length < 1) {
+                    endGame(true);
+                }
+            } else {
+                console.log("Bad news bears");
+                endGame(false);
+            }
+        }
     }
 
     function updateClock () {
