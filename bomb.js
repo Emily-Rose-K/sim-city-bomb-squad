@@ -31,7 +31,20 @@ document.addEventListener('DOMContentLoaded', function() {
     /* --------- Functions --------- */
 
     function reset() {
-        console.log("clicked reset");
+        timer.classList.remove("green");
+        body.classList.remove("flat")
+        for (let wire in wireState) {
+            wireState[wire] = false;
+        }
+        wiresToCut =[];
+
+        for (let i = 0; i < wireBox.children.length; i++) {
+            let color = wireBox.children[i].id;
+            wireBox.children[i].src = "img/uncut-" + color + "-wire.png"
+        }
+
+
+
         init();
     }
 
@@ -59,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (wireIndex > -1) {
                 console.log("Correct!");
                 wiresToCut.splice(wireIndex, 1);
-                if(wiresToCut.length < 1) {
+                if(wiresToCut.length === 0) {
                     endGame(true);
                 }
             } else {
