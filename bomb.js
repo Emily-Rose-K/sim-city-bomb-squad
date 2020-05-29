@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     /* --------- Game Logic Variables --------- */
     const STARTING_TIME = 30;
-    let remainingTime =0;
+    let remainingTime = 0;
     let gameOver = false;
     let countdown = null; // will hold countdown interval
     
@@ -43,15 +43,36 @@ document.addEventListener('DOMContentLoaded', function() {
               wiresToCut.push(color)
           }
       }
-      //FOR DEBUGGING
-      console.log(wiresToCut)
-      countdown = setInterval(updateClock, 1000)
-      resetButton.dabled = true;
+        //FOR DEBUGGING
+        console.log(wiresToCut)
+        countdown = setInterval(updateClock, 100)
+        resetButton.disabled = true;
     }
 
     function wireClick(e) {
         console.log("clicked wire box");
         console.log(e.target.id);
+    }
+
+    function updateClock () {
+        remainingTime--;
+        timer.textContent = "00:00" + remainingTime;
+        if (remainingTime <= 0) {
+            endGame(false)
+        }
+    }
+
+    function endGame(win) {
+        console.log("Win is " + win);
+
+        clearInterval(countdown)
+        gameOver = true;
+        resetButton.disabled = false;
+        if (win) {
+            timer.classList.add("green");
+        } else {
+            body.classList.add("flat");
+        }
     }
 
 })
